@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiChallenge.Views.Pages.ContactsPage.ContactsPage"
+             Title="Contacts"
+             xmlns:viewmodels="clr-namespace:MauiChallenge.ViewModels.Pages">
+    <Grid RowDefinitions="*, Auto">
+        <ScrollView Grid.Row="0">
+            <CollectionView 
+            ItemsSource="{Binding ContactsList}" 
+            RemainingItemsThreshold="2" 
+            RemainingItemsThresholdReachedCommand="{Binding LoadMoreContactsCommand}"
+            SelectionMode="Single"
+            SelectionChangedCommand="{Binding ContactSelectedCommand}"
+            SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={RelativeSource Self}}"
+            HeightRequest="600"
+            Margin="16, 0, 0, 16">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                        Padding="16"
+                        BackgroundColor="OrangeRed"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="2">
+
+                            <Grid
+                            ColumnDefinitions="*, 50">
+                                <VerticalStackLayout
+                                Spacing="2"
+                                Grid.Column="0">
+
+                                    <Label
+                                    FontSize="20"
+                                    FontFamily="OpenSansSemibold">
+
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Name.Title}" />
+                                                <Span Text=" " />
+                                                <Span Text="{Binding Name.First}" />
+                                                <Span Text=" " />
+                                                <Span Text="{Binding Name.Last}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+
+                                    </Label>
+
+                                    <Label
+                                    FontSize="18"
+                                    FontFamily="OpenSansRegular"
+                                    TextColor="Gray">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Email}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                    FontSize="14"
+                                    FontFamily="OpenSansRegular"
+                                    TextColor="Gray">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Location.City}" />
+                                                <Span Text=", " />
+                                                <Span Text="{Binding Location.State}" />
+                                                <Span Text=", " />
+                                                <Span Text="{Binding Location.Country}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                    FontSize="12"
+                                    FontFamily="OpenSansRegular"
+                                    Text="{Binding Nat, StringFormat='Nationality: {0:F0}'}"/>
+
+                                    <Label
+                                    FontSize="12"
+                                    TextColor="Gray">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Telephone Numbers: "/>
+                                                <Span Text="{Binding Phone}" />
+                                                <Span Text=", " />
+                                                <Span Text="{Binding Cell}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Button
+                                    Margin="0, 16, 0, 0"
+                                    Text="Show Password"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContactsPageViewModel}}, Path=ShowPasswordCommand}"
+                                    CommandParameter="{Binding Login.Password}"
+                                    Padding="0"/>
+
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout
+                                Grid.Column="1">
+                                    <Border
+                                    HeightRequest="50"
+                                    WidthRequest="50"
+                                    StrokeShape="Ellipse"
+                                    Padding="0">
+                                        <Image
+                                        Source="{Binding Picture.Large}"
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill" />
+                                    </Border>
+
+                                    <Label
+                                    Text="{Binding Gender}"
+                                    FontSize="12"/>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </Border>
+
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </ScrollView>
+        <!-- Spinner -->
+        <ActivityIndicator Grid.Row="1" 
+  IsRunning="{Binding IsLoading}"
+  IsVisible="{Binding IsLoading}"
+  HeightRequest="50" 
+  HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>
