@@ -31,7 +31,7 @@ public partial class Info
 
 public partial class ContactModel
 {
-    [JsonProperty("gender_s")]
+    [JsonProperty("gender")]
     public string Gender { get; set; }
 
     [JsonProperty("name")]
@@ -55,7 +55,7 @@ public partial class ContactModel
     [JsonProperty("phone")]
     public string Phone { get; set; }
 
-    [JsonProperty("cel")]
+    [JsonProperty("cell")]
     public string Cell { get; set; }
 
     [JsonProperty("id")]
